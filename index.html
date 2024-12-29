@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS生日蛋糕</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffe6e6;
+            overflow: hidden;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* 背景图片 */
+        .background-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: url('doudou.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* 蛋糕样式 */
+        .cake {
+            position: relative;
+            width: 120px;
+            height: 100px;
+            margin-bottom: 400px;
+            z-index: 2;
+        }
+
+        .plate {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 8px;
+            background: #ddd;
+            border-radius: 50%;
+            box-shadow: 0 2px 0 #ccc;
+        }
+
+        .layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff99cc;
+            border-radius: 10px;
+        }
+
+        .layer-bottom {
+            bottom: 8px;
+            width: 120px;
+            height: 20px;
+            background: #ff80bf;
+        }
+
+        .layer-middle {
+            bottom: 30px;
+            width: 90px;
+            height: 15px;
+            background: #ff99cc;
+        }
+
+        .layer-top {
+            bottom: 50px;
+            width: 60px;
+            height: 10px;
+            background: #ffb3d9;
+        }
+
+        .icing {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 10px;
+            bottom: 28px;
+        }
+
+        .icing::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: radial-gradient(circle, #fff 30%, transparent 31%);
+            background-size: 10px 10px;
+            background-position: 0 -6px;
+        }
+
+        /* 蜡烛 */
+        .candle {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 15px;
+            background: #ff3399;
+            border-radius: 3px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px; /* 增大火焰宽度 */
+            height: 24px; /* 增大火焰高度 */
+            background: linear-gradient(#ff6e00, #ffd700);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 1s infinite;
+        }
+
+        .flame::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px; /* 调整内层火焰宽度 */
+            height: 16px; /* 调整内层火焰高度 */
+            background: linear-gradient(#fff, #ffd700);
+            border-radius: 50% 50% 20% 20%;
+            opacity: 0.7;
+        }
+
+        .flame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px; /* 调整顶部小圆点宽度 */
+            height: 6px; /* 调整顶部小圆点高度 */
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                transform: scale(1) translateX(-50%);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1) translateX(-50%);
+                opacity: 0.8;
+            }
+        }
+
+        /* 点击爱心效果 */
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff6699;
+            transform: rotate(45deg);
+            z-index: 3;
+            opacity: 0;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ff6699;
+        }
+
+        .heart::before {
+            top: -15px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 15px;
+            top: 0;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(45deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(45deg) translateY(-100px);
+            }
+        }
+
+        .click-heart {
+            animation: fadeOut 2s forwards;
+        }
+
+        .text {
+            font-size: 32px;
+            color: #ff6699;
+            margin-top: 20px;
+            text-align: center;
+            animation: pulse 2s infinite;
+            z-index: 3;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <div class="cake">
+        <div class="plate"></div>
+        <div class="layer layer-bottom"></div>
+        <div class="layer layer-middle"></div>
+        <div class="layer layer-top"></div>
+        <div class="icing"></div>
+        <div class="candle">
+            <div class="flame"></div>
+        </div>
+    </div>
+    <div class="text">豆宝生日快乐</div>
+
+    <script>
+        document.body.addEventListener('click', function(event) {
+            const heart = document.createElement('div');
+            heart.className = 'heart click-heart';
+            heart.style.left = `${event.clientX - 15}px`;
+            heart.style.top = `${event.clientY - 15}px`;
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
